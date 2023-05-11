@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s%5g0h^*0f+y9pymn4txpwq2ans)5gh2irg*+1lxmt%awng!3-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
+    'app_core.apps.CoreConfig',
+    'app_permissions.apps.PermissionsConfig',
     'bootstrap5',
 ]
 
@@ -77,15 +78,15 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {'ENGINE': 'django.db.backends.sqlite3','NAME': BASE_DIR / 'db.sqlite3'}
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'base_teste',
-    #     'USER':'MobaXterm',
-    #     'PASSWORD':'admindeac',
-    #     'HOST':'10.9.3.160',
-    #     'PORT':'5432',
-    # }
+    # 'default': {'ENGINE': 'django.db.backends.sqlite3','NAME': BASE_DIR / 'db.sqlite3'}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'base_teste',
+        'USER':'MobaXterm',
+        'PASSWORD':'admindeac',
+        'HOST':'10.9.3.160',
+        'PORT':'5432',
+    }
 }
 
 

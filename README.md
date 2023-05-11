@@ -8,7 +8,7 @@ Crie um virtual environment:
 - env\scripts\activate.bat
 
 Instale as bibliotecas do projeto:
-- pip install -r project/requirements.txt
+- pip install -r requirements.txt
 
 Inicie o projeto:
 - py manage.py runserver

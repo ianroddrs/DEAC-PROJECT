@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% extends "base.html" %}
 
-    <h3>Autenticação de usuário</h3>
-    <form action="{% url 'login' %}" method="POST" id="formulario-entrar">
-        {% csrf_token %}
-        <label for="id_username">Usuário:</label>
-        <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+{% block title %}
+  Página de Login
+{% endblock %}
 
-        <label for="id_password">Senha:</label>
-        <input type="password" name="password" autocomplete="current-password" required id="id_password">
+{% block content %}
+<h3>Autenticação de usuário</h3>
+<form action="{% url 'login' %}" method="POST" id="formulario-entrar">
+    {% csrf_token %}
+    <label for="id_username">Usuário:</label>
+    <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
 
-        <button type="submit">Acessar conta</button>
-    </form>
-    
-</div> 
-</html>
+    <label for="id_password">Senha:</label>
+    <input type="password" name="password" autocomplete="current-password" required id="id_password">
+
+    <button type="submit">Acessar conta</button>
+</form>
+{% endblock %}

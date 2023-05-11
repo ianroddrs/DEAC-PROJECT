@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Permission
-from .lists import lista_permissions_template, lista_permissions_quali
+from .lists import QUALI_PERMISSIONS, TEMPLATE_PERMISSIONS
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

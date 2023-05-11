@@ -1,30 +1,41 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-  {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-</head>
-<body>
+{% extends "base.html" %}
 
-{% for x in fruits %}
-  <h1>{{ x }}</h1>
-{% endfor %}
+{% block title %}
+  Permissões de usuários
+{% endblock %}
 
-<p>In views.py you can see what the fruits variable looks like.</p>
+{% block content %}
+<p><a href="/home">home</a></p>
 
-<div class="container">
-  <ul class="nav bg-info">
-    <li class="nav-item">
-      <a class="nav-link link-light" href="/">HOME</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-light" href="/members">MEMBERS</a>
-    </li>
-  </ul>
-</div>
-</body>
-</html>
+<form method="post">
+    {% csrf_token %}
+    {% for user in users %}
+    <table>
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Permissões</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>
+                    <ul>
+                        {% for permission in perm_groups %}
+                        <li>
+                            <input type="checkbox" name="permission" {% if permission in user.user_permissions.all %}checked{% endif %}>
+                            {{permission}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <input type="submit" value="Salvar alterações">
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+    </form>
+{% endblock %}

@@ -1,4 +1,4 @@
-lista_permissions_quali = [
+QUALI_PERMISSIONS = [
     'nro_tombo','tipo_tombo','controle','consolidado','fato_real',
     'especificacao_crime','meio_emp_deac','distrito','municipios',
     'bairros','atuacao','vit_nome','vit_alcunha','vit_dt_nasc','vit_idade',
@@ -12,7 +12,7 @@ lista_permissions_quali = [
     'modelo_do_veic_fuga','qtd_autor','relatorio','ident_autoria','exclusao'
 ]
 
-lista_permissions_template = [
+TEMPLATE_PERMISSIONS = [
     'logentry','group','permission','user','contenttype','authgroup',
     'authgrouppermissions','authpermission','authuser','authusergroups',
     'authuseruserpermissions','djangoadminlog','djangocontenttype',

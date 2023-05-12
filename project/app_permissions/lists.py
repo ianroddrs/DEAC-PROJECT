@@ -13,9 +13,10 @@ QUALI_PERMISSIONS = [
 ]
 
 TEMPLATE_PERMISSIONS = [
-    'logentry','group','permission','user','contenttype','authgroup',
-    'authgrouppermissions','authpermission','authuser','authusergroups',
-    'authuseruserpermissions','djangoadminlog','djangocontenttype',
-    'djangomigrations','djangosession','sicadfull','session'
+    # 'logentry','group','permission','user','contenttype','authgroup',
+    # 'authgrouppermissions','authpermission','authuser','authusergroups',
+    # 'authuseruserpermissions','djangoadminlog','djangocontenttype',
+    'djangomigrations','djangosession',
+    'sicadfull'
 ]
 

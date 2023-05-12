@@ -24,22 +24,25 @@ from app_permissions.lists import QUALI_PERMISSIONS, TEMPLATE_PERMISSIONS
 @user_passes_test(lambda u: u.is_superuser)
 def testing(request):
     template = 'template.html'
-    users = User.objects.all()
-    permissions = Permission.objects.all()
+    all_users = User.objects.all()
+    all_permissions = Permission.objects
     perm_groups = TEMPLATE_PERMISSIONS
 
-    if request.method == 'POST':
-        for user in users:
-            for permission, perm_group in zip(permissions, perm_groups):
-                permission_name = 'permission_%s_%s' % (user.id, permission[1].id)
-                if permission_name in request.POST:
-                    user.user_permissions.add(permission)
-                else:
-                    user.user_permissions.remove(permission)
+    if request.method == 'POST' or request.method == 'GET':
+        for user in all_users:
+            for perm_group in perm_groups:
+                permissions = Permission.objects.filter(codename__in=[f'change_{perm_group}',f'view_{perm_group}'])
+                name_perm_group = f'{perm_group}_{user.id}'
+                
+                for permission in permissions:
+                    if name_perm_group in request.POST:
+                        user.user_permissions.add(permission)
+                    else:
+                        user.user_permissions.remove(permission)
+
 
     context = {
-        'users': users,
-        'permissions': permissions,
+        'all_users': all_users,
         'perm_groups':perm_groups,
     }
     return render(request, template, context)

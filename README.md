@@ -21,3 +21,7 @@ Inicie o projeto:
 >
 >### Para adicionar novas bibliotecas ao requirements
 >- py -m pip freeze > requirements.txt
+>
+>### Modelar base de dados
+>- python manage.py inspectdb
+>- python manage.py inspectdb > models.py

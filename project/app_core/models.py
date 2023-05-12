@@ -37,6 +37,7 @@ class AuthPermission(models.Model):
         db_table = 'auth_permission'
         unique_together = (('content_type', 'codename'),)
 
+
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
@@ -216,7 +217,6 @@ class Sicadfull(models.Model):
     controle = models.CharField(max_length=500, blank=True, null=True)
     controle_ctcd = models.CharField(max_length=500, blank=True, null=True)
     flags = models.CharField(max_length=500, blank=True, null=True)
-    id = models.AutoField(primary_key=True)
     data_upload = models.DateTimeField(blank=True, null=True)
     data_modificacao = models.DateTimeField(blank=True, null=True)
     id_servidor_sicad = models.IntegerField(blank=True, null=True)
@@ -229,6 +229,3 @@ class Sicadfull(models.Model):
     class Meta:
         managed = False
         db_table = 'sicadfull'
-
-    def __str__(self):
-        return f"{self.nro_bop}"

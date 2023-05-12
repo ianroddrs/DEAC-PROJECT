@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.urls import reverse_lazy
 
 @login_required
 def home(request):
@@ -9,9 +10,9 @@ def home(request):
 
 @login_required
 def sair(request):
-    template = 'login.html'
+    template = 'login'
     logout(request)
-    return render(request, template)
+    return redirect(reverse_lazy(template))
 
 ## test ##
 from django.shortcuts import render

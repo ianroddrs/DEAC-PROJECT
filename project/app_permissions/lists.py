@@ -12,11 +12,7 @@ QUALI_PERMISSIONS = [
     'modelo_do_veic_fuga','qtd_autor','relatorio','ident_autoria','exclusao'
 ]
 
-TEMPLATE_PERMISSIONS = [
-    # 'logentry','group','permission','user','contenttype','authgroup',
-    # 'authgrouppermissions','authpermission','authuser','authusergroups',
-    # 'authuseruserpermissions','djangoadminlog','djangocontenttype',
-    'djangomigrations','djangosession',
+GROUP_PERMISSIONS = [
     'sicadfull'
 ]
 

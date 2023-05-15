@@ -1,26 +1,27 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Permission
-from .lists import QUALI_PERMISSIONS, TEMPLATE_PERMISSIONS
+from .lists import GROUP_PERMISSIONS
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def user_permissions(request):
-    template = 'permissions.html'
+    template = 'template.html'
     users = User.objects.all()
-    permissions = Permission.objects.all()
+    groups = GROUP_PERMISSIONS
 
     if request.method == 'POST':
         for user in users:
-            for permission in permissions:
-                permission_name = 'permission_%s_%s' % (user.id, permission.id)
+            user.user_permissions.clear()
+            for group in groups:
+                permission_name = '%s_%s' % (group, user.id)
                 if permission_name in request.POST:
-                    user.user_permissions.add(permission)
-                else:
-                    user.user_permissions.remove(permission)
-
+                    permission_selects = Permission.objects.filter(codename__in=[f'change_{group}', f'view_{group}'])
+                    for permission in permission_selects:
+                        user.user_permissions.add(permission)
+                        
     context = {
         'users': users,
-        'permissions': permissions,
+        'groups': groups,
     }
     return render(request, template, context)

@@ -1,6 +1,8 @@
 project/app_core/__pycache__/
 project/app_core/migrations/__pycache__/
+project/app_core/templatetags/__pycache__/
 project/app_permissions/__pycache__/
 project/app_permissions/migrations/__pycache__/
+project/app_permissions/templatetags/__pycache__/
 project/project/__pycache__/
 env/

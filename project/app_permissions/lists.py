@@ -13,6 +13,67 @@ QUALI_PERMISSIONS = [
 ]
 
 GROUP_PERMISSIONS = [
-    'sicadfull'
+    'BOP', 'Autor', 'Vitima', 'Modus'
 ]
 
+
+
+# distrito = models.CharField(max_length=500, blank=True, null=True)
+# municipios = models.CharField(max_length=500, blank=True, null=True)
+# bairros = models.CharField(max_length=500, blank=True, null=True)
+
+
+# vit_nome = models.TextField(blank=True, null=True)
+# vit_alcunha = models.CharField(max_length=500, blank=True, null=True)
+# vit_dt_nasc = models.DateField(blank=True, null=True)
+# vit_idade = models.IntegerField(blank=True, null=True)
+# vit_fx_etaria = models.CharField(max_length=500, blank=True, null=True)
+# vit_nro_doc = models.CharField(max_length=500, blank=True, null=True)
+# vit_tipo_doc = models.CharField(max_length=500, blank=True, null=True)
+# vit_pai = models.CharField(max_length=500, blank=True, null=True)
+# vit_mae = models.CharField(max_length=500, blank=True, null=True)
+# vit_tipo = models.CharField(max_length=500, blank=True, null=True)
+# vit_sexo = models.CharField(max_length=100, blank=True, null=True)
+# vit_cor_pele = models.CharField(max_length=500, blank=True, null=True)
+# vit_grau_inst = models.CharField(max_length=500, blank=True, null=True)
+# vit_profissao = models.CharField(max_length=500, blank=True, null=True)
+# vit_situacao_emprego = models.CharField(max_length=500, blank=True, null=True)
+# vit_estado_civil = models.CharField(max_length=500, blank=True, null=True)
+
+# aut_nome = models.CharField(max_length=500, blank=True, null=True)
+# aut_alcunha = models.CharField(max_length=500, blank=True, null=True)
+# aut_data_nasc = models.DateField(blank=True, null=True)
+# aut_idade = models.IntegerField(blank=True, null=True)
+# aut_fx_etaria = models.CharField(max_length=500, blank=True, null=True)
+# aut_nro_doc = models.CharField(max_length=500, blank=True, null=True)
+# aut_tipo_doc = models.CharField(max_length=500, blank=True, null=True)
+# aut_pai = models.CharField(max_length=500, blank=True, null=True)
+# aut_mae = models.CharField(max_length=500, blank=True, null=True)
+# aut_tipo = models.CharField(max_length=500, blank=True, null=True)
+# aut_sexo = models.CharField(max_length=500, blank=True, null=True)
+# grau_de_relacionamento = models.CharField(max_length=500, blank=True, null=True)
+# aut_cor_pele = models.CharField(max_length=500, blank=True, null=True)
+# aut_grau_inst = models.CharField(max_length=500, blank=True, null=True)
+# aut_profissao = models.CharField(max_length=500, blank=True, null=True)
+# aut_sit_emprego = models.CharField(max_length=500, blank=True, null=True)
+# aut_est_civil = models.CharField(max_length=500, blank=True, null=True)
+# qtd_autor = models.IntegerField(blank=True, null=True)
+# meio_emp_deac = models.CharField(max_length=500, blank=True, null=True)
+
+
+## MODUS OPERANDI
+# meio_locomocao = models.CharField(max_length=500, blank=True, null=True)
+# cor_veiculo = models.CharField(max_length=500, blank=True, null=True)
+# marca_veic_fuga = models.CharField(max_length=500, blank=True, null=True)
+# modelo_do_veic_fuga = models.CharField(max_length=500, blank=True, null=True)
+
+# nro_tombo = models.CharField(max_length=500, blank=True, null=True)
+# tipo_tombo = models.CharField(max_length=500, blank=True, null=True)
+# controle = models.CharField(max_length=500, blank=True, null=True)
+# consolidado = models.CharField(max_length=500, blank=True, null=True)
+# fato_real = models.CharField(max_length=500, blank=True, null=True)
+# especificacao_crime = models.CharField(max_length=500, blank=True, null=True)
+# relatorio = models.CharField(max_length=500, blank=True, null=True)
+# ident_autoria = models.CharField(max_length=500, blank=True, null=True)
+# exclusao = models.BooleanField()
+# atuacao = models.CharField(max_length=500, blank=True, null=True)

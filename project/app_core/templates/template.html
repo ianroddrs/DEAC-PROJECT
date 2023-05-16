@@ -1,44 +1,46 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% load filters_test %}
 
 
+{% block js %}
+<script src="{% static 'js/busca.js' %}" defer></script>
+{% endblock js %}
+
 {% block title %}
-  Permissões de usuários
+  Busca de Boletins
 {% endblock %}
 
 {% block content %}
-<form method="POST">
-  {% csrf_token %}
-    <table>
-      <thead>
-        <tr>
-          <th>Usuário</th>
-          <th>Permissões</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-        {% if not user.is_superuser%}
-        <tr>
-          <td>{{ user.username }}</td>   
-          <td>
-            <ul>
-              {% for group in groups %}
-              <li>
-                <input type="checkbox" name="{{group}}_{{user.id}}"
-                {% if user|teste:group %} checked {% endif %}>
-                {{ group }}
-              </li>
-              {% endfor %}
-            </ul>
-          </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-    <button type="submit">Salvar</button>
-  </form>
+
+<h1>Busca de Boletins</h1>
+<a href="/home">home</a>
+<a href="/test">testes</a>
+<a href="{% url 'sair' %}">sair</a>
+
+<form method="post" {% comment %}action="{% url 'buscar_dados' %}"{% endcomment %}>
+    {% csrf_token %}
   
+    <!-- selects -->
+    <div id="selects">
+      <div class=" select">
+        <label for="select1_coluna">Select:</label>
+        <select id="select1_coluna" name="select1_coluna" >
+          <option value="">Selecione uma coluna</option>
+          {% for coluna in colunas %}
+          <option value="{{ coluna }}">{{ coluna }}</option>
+          {% endfor %}
+        </select>
+        <input type="text" id="select1_valor" name="select1_valor"  placeholder="Valor">
+        <button type="button" class="btn-apagar-select">Apagar</button>
+      </div>
+    </div>
+  
+    <!-- Botão de adicionar select -->
+    <button type="button" id="btn-adicionar-select" >+</button>
+  
+    <!-- Botão de buscar -->
+    <button type="submit" >Buscar</button>
+  </form>
+ 
 {% endblock %}

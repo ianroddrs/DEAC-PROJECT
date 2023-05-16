@@ -19,7 +19,7 @@ def sair(request):
 
 
 ## test ##
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from app_permissions.lists import GROUP_PERMISSIONS
 
@@ -27,22 +27,27 @@ from app_permissions.lists import GROUP_PERMISSIONS
 @user_passes_test(lambda u: u.is_superuser)
 def testing(request):
     template = 'template.html'
-    users = User.objects.all()
-    groups = GROUP_PERMISSIONS
+
+    colunas = [
+        'Numero de Boletin',
+        'Numero de Procedimento',
+        'Relato',
+        'Municipio',
+        'Bairro',
+        'Data Inicio',
+        'Data Fim',
+        'Nome do Autor',
+        'Nome da Vitima',
+        'Procedimento',
+        'Meio Empregado',
+        'Meio de Locomoção',
+    ]
 
     if request.method == 'POST':
-        for user in users:
-            user.user_permissions.clear()
-            for group in groups:
-                permission_name = '%s_%s' % (group, user.id)
-                if permission_name in request.POST:
-                    permission_selects = Permission.objects.filter(codename__in=[f'change_{group}', f'view_{group}'])
-                    for permission in permission_selects:
-                        user.user_permissions.add(permission)
-
+        pass
 
     context = {
-        'users': users,
-        'groups': groups,
+        "colunas":colunas,
     }
+    
     return render(request, template, context)

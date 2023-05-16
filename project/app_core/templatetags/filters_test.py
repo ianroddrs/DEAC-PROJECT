@@ -8,7 +8,7 @@ def has_permission(user, group):
     permissions_groups = GROUP_PERMISSIONS
     for x in permissions_groups:
         if group == x:
-            if user.has_perm(f'app_core.view_{group}' and f'app_core.change_{group}'):
+            if user.has_perm(f'app_core.{group}'):
                 has_perm = True
             else:
                 has_perm = False

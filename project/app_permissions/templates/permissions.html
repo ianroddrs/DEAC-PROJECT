@@ -1,43 +1,50 @@
 {% extends "base.html" %}
 
+{% load filters %}
+
+
 {% block title %}
   Permissões de usuários
 {% endblock %}
 
 {% block content %}
+
+<h1>PERMISSIONS</h1>
 <a href="/home">home</a>
 <a href="/testing">testes</a>
 <a href="{% url 'sair' %}">sair</a>
+
 <form method="POST">
-    {% csrf_token %}
-      <table>
-        <thead>
-          <tr>
-            <th>Usuário</th>
-            <th>Permissões</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in users %}
-          {% if not user.is_superuser%}
-          <tr>
-            <td>{{ user.username }}</td>   
-            <td>
-              <ul>
-                {% for group in groups %}
-                <li>
-                  <input type="checkbox" name="{{group}}_{{user.id}}"
-                  {% if user|has_perm:group %} checked {% endif %}>
-                  {{ group }}
-                </li>
-                {% endfor %}
-              </ul>
-            </td>
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-      <button type="submit">Salvar</button>
-    </form>
+  {% csrf_token %}
+    <table>
+      <thead>
+        <tr>
+          <th>Usuário</th>
+          <th>Permissões</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        {% if not user.is_superuser%}
+        <tr>
+          <td>{{ user.username }}</td>   
+          <td>
+            <ul>
+              {% for group in groups %}
+              <li>
+                <input type="checkbox" name="{{group}}_{{user.id}}"
+                {% if user|has_perm:group %} checked {% endif %}>
+                {{ group }}
+              </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit">Salvar</button>
+  </form>
+  
 {% endblock %}

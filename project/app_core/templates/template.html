@@ -20,27 +20,30 @@
 
 <form method="post" {% comment %}action="{% url 'buscar_dados' %}"{% endcomment %}>
     {% csrf_token %}
+    <label for="data_inicio">Período:</label>
+    <input type="date" name="data_inicio" id="data_inicio">
+    <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
+    <input type="date" name="data_fim" id="data_fim">
   
     <!-- selects -->
     <div id="selects">
-      <div class=" select">
-        <label for="select1_coluna">Select:</label>
-        <select id="select1_coluna" name="select1_coluna" >
+      <div class="select">
+        <label for="select_coluna_1">Select:</label>
+        <select id="select_coluna_1" name="select_coluna_1">
           <option value="">Selecione uma coluna</option>
           {% for coluna in colunas %}
           <option value="{{ coluna }}">{{ coluna }}</option>
           {% endfor %}
         </select>
-        <input type="text" id="select1_valor" name="select1_valor"  placeholder="Valor">
-        <button type="button" class="btn-apagar-select">Apagar</button>
+        <input type="search" id="select_valor_1" name=""  placeholder="Buscar por...">
+        <button type="button" class="btn-apagar-select" onclick="remover_select(this)"><i class="bi bi-trash"></i></button>
       </div>
     </div>
   
     <!-- Botão de adicionar select -->
-    <button type="button" id="btn-adicionar-select" >+</button>
+    <button type="button" id="btn-adicionar-select" onclick="adicionar_select()"><i class="bi bi-plus-lg"></i></button>
   
     <!-- Botão de buscar -->
-    <button type="submit" >Buscar</button>
+    <button type="submit" ><i class="bi bi-search"></i></button>
   </form>
- 
 {% endblock %}

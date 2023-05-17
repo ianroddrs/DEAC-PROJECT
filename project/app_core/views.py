@@ -34,17 +34,15 @@ def testing(request):
         'Relato',
         'Municipio',
         'Bairro',
-        'Data Inicio',
-        'Data Fim',
         'Nome do Autor',
         'Nome da Vitima',
-        'Procedimento',
+        'Consolidado',
         'Meio Empregado',
         'Meio de Locomoção',
     ]
 
     if request.method == 'POST':
-        pass
+        print(request.POST)
 
     context = {
         "colunas":colunas,

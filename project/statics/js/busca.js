@@ -1,53 +1,38 @@
-// mudar tipo de input de acordo com select
-function mudarTipoInput() {
-    var select = document.getElementById("tipo-input");
-    var input = document.getElementById("meu-input");
-    var novoTipo = select.value;
-    input.type = novoTipo;
+// adicionar selects
+function adicionar_select(){
+  const selectsContainer = document.getElementById('selects');
+  let contador = 2;
+
+  const novoselect = document.createElement('div');
+  novoselect.classList.add('select');
+
+  const selectHTML = `
+  <label for="select_coluna_1">Select:</label>
+    <select id="select_coluna_1" name="select_coluna_1" onchange="mudarTipoInput()">
+      <option value="">Selecione uma coluna</option>
+      {% for coluna in colunas %}
+      <option value="{{ coluna }}">{{ coluna }}</option>
+      {% endfor %}
+    </select>
+    <input type="search" id="select_valor_1" name=""  placeholder="Buscar por...">
+    <button type="button" class="btn-apagar-select" onclick="remover_select(this)"><i class="bi bi-trash"></i></button>
+  `;
+
+  novoselect.innerHTML = selectHTML;
+  selectsContainer.appendChild(novoselect);
+  contador++;
+}
+
+// remover selects
+function remover_select(button){
+  const selectsContainer = document.getElementById('selects');
+  var busca = button.parentNode;
+  var selectElement = busca.querySelector("select");
+  var inputElement = busca.querySelector("input");
+  if (selectsContainer.children.length > 1) {
+    busca.remove();
+  } else {
+    selectElement.value = '';
+    inputElement.value = '';
   }
-
-
-  
-
-// adicionar e remover selects
-
-document.addEventListener('DOMContentLoaded', function() {
-    const btnAdicionarselect = document.getElementById('btn-adicionar-select');
-    const selectsContainer = document.getElementById('selects');
-    let contador = 2;
-
-    btnAdicionarselect.addEventListener('click', function() {
-      const novoselect = document.createElement('div');
-      novoselect.classList.add('select');
-
-      const selectHTML = `
-        <label for="select_coluna_${contador}">Select:</label>
-        <select id="select_coluna_${contador}" name="select_coluna_${contador}" >
-          <option value="">Selecione uma coluna</option>
-          {% for coluna in colunas %}
-          <option value="{{ coluna }}">{{ coluna }}</option>
-          {% endfor %}
-        </select>
-        <input type="text" id="select_valor_${contador}" name="select_valor_${contador}"  placeholder="Valor">
-        <button type="button" class="btn-apagar-select">Apagar</button>
-      `;
-
-      novoselect.innerHTML = selectHTML;
-      selectsContainer.appendChild(novoselect);
-      contador++;
-    });
-
-    selectsContainer.addEventListener('click', function(event) {
-      if (event.target.classList.contains('btn-apagar-select')) {
-        const select = event.target.closest('.select');
-        if (selectsContainer.children.length > 1) {
-          select.remove();
-        } else {
-          const select = select.querySelector('select');
-          const input = select.querySelector('input');
-          select.value = '';
-          input.value = '';
-        }
-      }
-    });
-  });
+}

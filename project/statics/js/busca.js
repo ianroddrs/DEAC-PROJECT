@@ -1,5 +1,6 @@
 // adicionar selects
 function adicionar_select(){
+
   const selectsContainer = document.getElementById('selects');
   let contador = 2;
 
@@ -35,4 +36,15 @@ function remover_select(button){
     selectElement.value = '';
     inputElement.value = '';
   }
+}
+
+
+
+/////////////////////////////////////////////////////////
+
+function select_name(select){
+
+  var busca = select.parentNode;
+  var inputElement = busca.querySelector("input");
+  inputElement.name = select.value
 }

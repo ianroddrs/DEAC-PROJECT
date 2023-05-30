@@ -18,11 +18,9 @@ GROUP_PERMISSIONS = [
 
 
 
-# distrito = models.CharField(max_length=500, blank=True, null=True)
-# municipios = models.CharField(max_length=500, blank=True, null=True)
-# bairros = models.CharField(max_length=500, blank=True, null=True)
 
 
+## VITIMA
 # vit_nome = models.TextField(blank=True, null=True)
 # vit_alcunha = models.CharField(max_length=500, blank=True, null=True)
 # vit_dt_nasc = models.DateField(blank=True, null=True)
@@ -39,7 +37,10 @@ GROUP_PERMISSIONS = [
 # vit_profissao = models.CharField(max_length=500, blank=True, null=True)
 # vit_situacao_emprego = models.CharField(max_length=500, blank=True, null=True)
 # vit_estado_civil = models.CharField(max_length=500, blank=True, null=True)
+# relator = models.TextField(blank=True, null=True) BLOQUEADO
+# atuacao = models.CharField(max_length=500, blank=True, null=True)
 
+## AUTOR
 # aut_nome = models.CharField(max_length=500, blank=True, null=True)
 # aut_alcunha = models.CharField(max_length=500, blank=True, null=True)
 # aut_data_nasc = models.DateField(blank=True, null=True)
@@ -58,7 +59,6 @@ GROUP_PERMISSIONS = [
 # aut_sit_emprego = models.CharField(max_length=500, blank=True, null=True)
 # aut_est_civil = models.CharField(max_length=500, blank=True, null=True)
 # qtd_autor = models.IntegerField(blank=True, null=True)
-# meio_emp_deac = models.CharField(max_length=500, blank=True, null=True)
 
 
 ## MODUS OPERANDI
@@ -67,6 +67,13 @@ GROUP_PERMISSIONS = [
 # marca_veic_fuga = models.CharField(max_length=500, blank=True, null=True)
 # modelo_do_veic_fuga = models.CharField(max_length=500, blank=True, null=True)
 
+## BOLETIM
+# nro_bop = models.CharField(max_length=500, blank=True, null=True)
+# nro_bop_aditado = models.CharField(max_length=500, blank=True, null=True)
+# distrito = models.CharField(max_length=500, blank=True, null=True)
+# municipios = models.CharField(max_length=500, blank=True, null=True)
+# identificacao_fato = models.TextField(blank=True, null=True)
+# bairros = models.CharField(max_length=500, blank=True, null=True)
 # nro_tombo = models.CharField(max_length=500, blank=True, null=True)
 # tipo_tombo = models.CharField(max_length=500, blank=True, null=True)
 # controle = models.CharField(max_length=500, blank=True, null=True)
@@ -76,4 +83,4 @@ GROUP_PERMISSIONS = [
 # relatorio = models.CharField(max_length=500, blank=True, null=True)
 # ident_autoria = models.CharField(max_length=500, blank=True, null=True)
 # exclusao = models.BooleanField()
-# atuacao = models.CharField(max_length=500, blank=True, null=True)
+# meio_emp_deac = models.CharField(max_length=500, blank=True, null=True)

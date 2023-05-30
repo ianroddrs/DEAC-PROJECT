@@ -8,5 +8,6 @@ urlpatterns = [
     path('sair/', views.sair, name='sair'),
 
     ## test ##
-    path('testing/', views.testing, name='testing'),  
+    path('busca/', views.busca, name='busca'), 
+    path('editar/', views.edit, name='editar'),
 ]

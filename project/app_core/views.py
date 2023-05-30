@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import logout
 from django.urls import reverse_lazy
 from app_permissions.models import Sicadfull
+from .forms import SicadfullForm
 
 @login_required
 def home(request):
@@ -18,44 +19,43 @@ def sair(request):
 
 
 ## test ##
-from datetime import date
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from .scripts import adicionar_argumentos
-from django.db.models import Q
+from .scripts import adicionar_filtros, collumns_list
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
-def testing(request):
-    template = 'template.html'
+def busca(request):
+    template = 'busca.html'
+    colunas = collumns_list(Sicadfull)
+    usuario = request.user
 
-    colunas = [coluna for coluna in vars(Sicadfull)]
+    print(len(colunas))
 
     if request.method == 'POST':
-        DATA_INICIO = request.POST.get('data_inicio')
-        DATA_FIM = request.POST.get('data_fim')
-
-        print(request.POST)    
-    
-        args = adicionar_argumentos(DATA_INICIO, DATA_FIM)
-
-        pesquisa = 'joao cleber'
-        palavras_chave = pesquisa.split()
-
-        query = Q()
-        for palavra in palavras_chave:
-            query &= Q(vit_nome__icontains=palavra)
-
-        resultado = Sicadfull.objects.filter(query, **args)
-
-        context = {
-            "colunas":colunas,
-            "resultado":resultado,
-        }
+        query = adicionar_filtros(request)
+        resultado = Sicadfull.objects.filter(query)
+        context = { "colunas":colunas, "resultado":resultado}
     else:
-        context = {
-                "colunas":colunas,
-            }
+        context = { "colunas":colunas, }
 
     
     return render(request, template, context)
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        formset = SicadfullForm(request.POST)
+        if formset.is_valid():
+            formset.save()
+            # Faça algo após salvar os dados, se necessário
+    else:
+        ids = request.POST.getlist('id')  # Obtém uma lista de IDs dos registros selecionados
+        sicadfull_objects = []
+        for id in ids:
+            ocorrencia = Sicadfull.objects.get(id=id)
+            if isinstance(ocorrencia, Sicadfull):
+                sicadfull_objects.append(ocorrencia)
+        
+        formset = SicadfullForm(queryset=sicadfull_objects)
+    
+    return render(request, 'edit.html', {'formset': formset})

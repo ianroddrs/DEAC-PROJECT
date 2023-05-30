@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters_test %}
+
+
+{% block statics %}
+<script src="{% static 'js/busca.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'css/busca.css' %}">
+{% endblock %}
+
+{% block title %}
+  Busca de Boletins
+{% endblock %}
+
+{% block content %}
+
+<h1>Busca de Boletins</h1>
+<a href="/home">home</a>
+<a href="/busca">busca</a>
+<a href="{% url 'sair' %}">sair</a>
+
+<hr>
+
+<form method="post" action="{% url 'busca' %}" id="myForm">
+  {% csrf_token %}
+  <label for="data_inicio">Período:</label>
+  <input type="date" name="data_inicio" id="data_inicio" value="2023-01-01">
+  <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
+  <input type="date" name="data_fim" id="data_fim" value="2023-01-01">
+  <!-- Botão de adicionar select -->
+  <span>
+    <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+      <i class="bi bi-plus-lg"></i>
+    </button>
+    <ul class="dropdown-menu">
+      {% for coluna in colunas %}
+      <li class="dropdown-item" data-target="{{coluna}}">
+        {{coluna}}
+      </li>
+      {% endfor %}
+  
+    </ul>
+  </span>
+  
+  <div id="selects">
+    {% for coluna in colunas %}
+    <div id="{{coluna}}" class="input_busca">
+      <span>{{coluna}}</span>
+      <input type="text" name="{{coluna}}" value="oi">
+      <button type="button" class="btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
+    </div>
+    {% endfor %}
+  </div>
+  
+
+
+  <!-- Botão de buscar -->
+  <button type="submit"><i class="bi bi-search"></i></button>
+</form>
+
+<hr>
+
+<h1>Resultado da busca:</h1> 
+<form action="{% url 'editar' %}" method="post">
+  {% csrf_token %}
+  <button type="submit"><i class="bi bi-pencil-square"></i></button>
+  {% for bo in resultado %}
+  <div>
+    <span><input type="checkbox" name="id" value="{{ bo.id }}"></span>{{ bo.data_fato }} | {{ bo.nro_bop }} | {{ bo.vit_nome }}
+  </div>
+  {% endfor %}
+</form>
+
+{% endblock %}

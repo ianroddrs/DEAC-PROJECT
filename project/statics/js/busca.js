@@ -1,50 +1,52 @@
-// adicionar selects
-function adicionar_select(){
+// adicionar / remover inputs na tela
+document.addEventListener("DOMContentLoaded", function() {
+  const dropdownItems = document.querySelectorAll(".dropdown-item");
+  const btnApagar = document.querySelectorAll(".btn-apagar");
 
-  const selectsContainer = document.getElementById('selects');
-  let contador = 2;
+  dropdownItems.forEach(function(item) {
+    item.addEventListener("click", function() {
+      const targetId = item.getAttribute("data-target");
+      const targetDiv = document.getElementById(targetId);
+      const input = targetDiv.querySelector("input");
 
-  const novoselect = document.createElement('div');
-  novoselect.classList.add('select');
+      item.classList.toggle("selected");
+      targetDiv.style.display = (item.classList.contains("selected")) ? "block" : "none";
+      input.value = (item.classList.contains("selected")) ? "" : input.value;
+    });
+  });
 
-  const selectHTML = `
-  <label for="select_coluna_1">Select:</label>
-    <select id="select_coluna_1" name="select_coluna_1" onchange="mudarTipoInput()">
-      <option value="">Selecione uma coluna</option>
-      {% for coluna in colunas %}
-      <option value="{{ coluna }}">{{ coluna }}</option>
-      {% endfor %}
-    </select>
-    <input type="search" id="select_valor_1" name=""  placeholder="Buscar por...">
-    <button type="button" class="btn-apagar-select" onclick="remover_select(this)"><i class="bi bi-trash"></i></button>
-  `;
+  btnApagar.forEach(function(item){
+    item.addEventListener("click", function(){
+      const targetData = item.getAttribute("data-target");
+      const targetDiv = document.getElementById(targetData);      
 
-  novoselect.innerHTML = selectHTML;
-  selectsContainer.appendChild(novoselect);
-  contador++;
-}
+      const dropdownItem = document.querySelector(`.dropdown-item[data-target="${targetData}"]`);
+      dropdownItem.classList.remove("selected");
 
-// remover selects
-function remover_select(button){
-  const selectsContainer = document.getElementById('selects');
-  var busca = button.parentNode;
-  var selectElement = busca.querySelector("select");
-  var inputElement = busca.querySelector("input");
-  if (selectsContainer.children.length > 1) {
-    busca.remove();
-  } else {
-    selectElement.value = '';
-    inputElement.value = '';
-  }
-}
+      var element = item.parentNode;
+      var inputElement = element.querySelector("input");
+      targetDiv.style.display = 'none'
+      inputElement.value = '';
+    });
+  });
 
-
-
-/////////////////////////////////////////////////////////
-
-function select_name(select){
-
-  var busca = select.parentNode;
-  var inputElement = busca.querySelector("input");
-  inputElement.name = select.value
-}
+  document.querySelectorAll("div#selects").forEach(function(selectsDiv) {
+    // Selecionar todos os inputs dentro da div
+    const inputs = selectsDiv.querySelectorAll("input");
+  
+    // Verificar se algum dos inputs não está vazio
+    let hasValue = false;
+    inputs.forEach(function(input) {
+      if (input.value !== "") {
+        hasValue = true;
+      }
+    });
+  
+    // Exibir a div e marcar o dropdown-item relacionado como selecionado
+    if (hasValue) {
+      selectsDiv.style.display = "block";
+      const dropdownItem = document.querySelector(`.dropdown-item[data-target="${selectsDiv.id}"]`);
+      dropdownItem.classList.add("selected");
+    }
+  });
+});

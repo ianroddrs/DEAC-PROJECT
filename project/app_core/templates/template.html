@@ -15,47 +15,48 @@
 
 <h1>Busca de Boletins</h1>
 <a href="/home">home</a>
-<a href="/test">testes</a>
+<a href="/testing">testes</a>
 <a href="{% url 'sair' %}">sair</a>
 
-<form method="post" {% comment %}action="{% url 'buscar_dados' %}"{% endcomment %}>
-    {% csrf_token %}
-    <label for="data_inicio">Período:</label>
-    <input type="date" name="data_inicio" id="data_inicio">
-    <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
-    <input type="date" name="data_fim" id="data_fim" >
-  
-    <!-- selects -->
-    <div id="selects">
-      <div class="select">
-        <span>Select:</span>
-        <select name="select_coluna_1" onchange="select_name(this)">
-          <option value="">Selecione uma coluna</option>
-          {% for coluna in colunas %}
-          <option value="{{ coluna }}">{{ coluna }}</option>
-          {% endfor %}
-        </select>
-        <input type="search" id="select_valor_1" placeholder="Buscar por...">
+<form method="post" action="{% url 'testing' %}" id="myForm">
+  {% csrf_token %}
+  <label for="data_inicio">Período:</label>
+  <input type="date" name="data_inicio" id="data_inicio" value="2023-01-01">
+  <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
+  <input type="date" name="data_fim" id="data_fim" value="2023-01-01">
 
-        <button type="button" class="btn-apagar-select" onclick="remover_select(this)"><i class="bi bi-trash"></i></button>
-      </div>
+  <!-- selects -->
+  <div id="selects">
+    <div class="select">
+      <span>Select:</span>
+      <select onchange="select_name(this)">
+        <option value="">Selecione uma coluna</option>
+        {% for coluna in colunas %}
+        <option value="{{ coluna }}">{{ coluna }}</option>
+        {% endfor %}
+      </select>
+      <input type="search" placeholder="Buscar por...">
+      <button type="button" class="btn-apagar-select" onclick="remover_select(this)"><i class="bi bi-trash"></i></button>
     </div>
-  
-    <!-- Botão de adicionar select -->
-    <button type="button" id="btn-adicionar-select" onclick="adicionar_select()"><i class="bi bi-plus-lg"></i></button>
-  
-    <!-- Botão de buscar -->
-    <button type="submit" ><i class="bi bi-search"></i></button>
-  </form>
+  </div>
 
+  <!-- Botão de adicionar select -->
+  <button type="button" id="btn-adicionar-select" onclick="adicionar_select()"><i class="bi bi-plus-lg"></i></button>
 
-  <hr>
+  <!-- Botão de buscar -->
+  <button type="submit"><i class="bi bi-search"></i></button>
+</form>
 
-  <h1>Resultado da busca:</h1>
+<hr>
 
+<h1>Resultado da busca:</h1> 
+<form action="{% url 'editar' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">ir para edição</button>
   {% for bo in resultado %}
   <div>
-    {{ bo.data_fato }} | {{ bo.nro_bop }} | {{ bo.vit_nome }}
+    <span><input type="checkbox" name="{{bo.id}}"></span>{{ bo.data_fato }} | {{ bo.nro_bop }} | {{ bo.vit_nome }}
   </div>
   {% endfor %}
+</form>
 {% endblock %}

@@ -1,9 +1,13 @@
 from django.db.models import Q
 
-def adicionar_filtros(request):    
-    DATA_INICIO = request.POST.get('data_inicio')
-    DATA_FIM = request.POST.get('data_fim')
-    VIT_NOME = request.POST.getlist('vit_nome')
+def adicionar_filtros(request):
+    chaves = request.keys()
+    valores = request.values()
+    dic = {chaves[i]: valores[i] for i in range(len(chaves))}
+
+    DATA_INICIO = request.get('data_inicio')
+    DATA_FIM = request.get('data_fim')
+    VIT_NOME = request.getlist('vit_nome')
 
     query = Q()
     
@@ -20,7 +24,6 @@ def adicionar_filtros(request):
     return query
 
 def collumns_list(Sicadfull):
-    exclude_strings = ["_meta", "__module__", "__doc__", "MultipleObjectsReturned", "DoesNotExist"]
-    colunas = [coluna for coluna in vars(Sicadfull) if not any(s in coluna for s in exclude_strings)]
+    colunas = [coluna for coluna in vars(Sicadfull) if not any(s in coluna for s in ["_meta", "__module__", "__doc__", "MultipleObjectsReturned", "DoesNotExist", "objects"])]
     colunas.sort()
     return colunas

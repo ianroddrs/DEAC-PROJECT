@@ -2,6 +2,19 @@
 document.addEventListener("DOMContentLoaded", function() {
   const dropdownItems = document.querySelectorAll(".dropdown-item");
   const btnApagar = document.querySelectorAll(".btn-apagar");
+  const inputs = document.querySelectorAll(".input_busca");
+
+  inputs.forEach(function(input) {
+    if (input.value !== "") {
+      const targetData = input.getAttribute("name");
+      const dropdownItem = document.querySelector(`.dropdown-item[data-target="${targetData}"]`);
+      dropdownItem.classList.add("selected");
+
+      const divPai = input.parentNode;
+      divPai.style.display = "block";
+      divPai.style.setProperty("display", "block", "important");
+    }
+  });
 
   dropdownItems.forEach(function(item) {
     item.addEventListener("click", function() {
@@ -30,23 +43,4 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  document.querySelectorAll("div#selects").forEach(function(selectsDiv) {
-    // Selecionar todos os inputs dentro da div
-    const inputs = selectsDiv.querySelectorAll("input");
-  
-    // Verificar se algum dos inputs não está vazio
-    let hasValue = false;
-    inputs.forEach(function(input) {
-      if (input.value !== "") {
-        hasValue = true;
-      }
-    });
-  
-    // Exibir a div e marcar o dropdown-item relacionado como selecionado
-    if (hasValue) {
-      selectsDiv.style.display = "block";
-      const dropdownItem = document.querySelector(`.dropdown-item[data-target="${selectsDiv.id}"]`);
-      dropdownItem.classList.add("selected");
-    }
-  });
 });

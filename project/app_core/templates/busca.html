@@ -44,16 +44,14 @@
   
   <div id="selects">
     {% for coluna in colunas %}
-    <div id="{{coluna}}" class="input_busca">
+    <div id="{{coluna}}" class="hide">
       <span>{{coluna}}</span>
-      <input type="text" name="{{coluna}}" value="oi">
+      <input class="input_busca" type="text" name="{{coluna}}"value="{% for value in values%}{% if value.0 == coluna %}{{value.1}}{% endif %}{% endfor%}">
       <button type="button" class="btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
     </div>
     {% endfor %}
   </div>
   
-
-
   <!-- Botão de buscar -->
   <button type="submit"><i class="bi bi-search"></i></button>
 </form>

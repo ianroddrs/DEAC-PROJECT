@@ -50,12 +50,16 @@
 {% for forms in form%}
 {{forms.value}}
 {% endfor %}
-{% for k in form %}
 <form method="post">
   {% csrf_token %}
-{{k.servidor}}
+{% for k in form %}
+{% for i in k %}
+{{i}}
+{% comment %} {{ocorrencias.0.id}} {% endcomment %}
+{% endfor %}
+{% endfor %}
+<input type="text" name="id" value="{{ocorrencias.0.id}}" maxlength="50" id="id">
 <button type="submit" name='salvar'>Salvar</button>
 </form>
-{% endfor %}
 
 {% endblock %}

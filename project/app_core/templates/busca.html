@@ -64,8 +64,11 @@
   <button type="submit"><i class="bi bi-pencil-square"></i></button>
   {% for bo in resultado %}
   <div>
-    <span><input type="checkbox" name="id" value="{{ bo.id }}"></span>{{ bo.data_fato }} | {{ bo.nro_bop }} | {{ bo.vit_nome }}
+    <span><input type="checkbox" name="id" value="{{ bo.id }}"></span>
+    {{ bo.data_fato }} | <br>{{ bo.nro_bop }} | <br>{{ bo.vit_nome }}
+    | <br>{{ bo.vit_pai}} | <br>{{ bo.vit_mae}} | <br>{{ bo.relato}}
   </div>
+  <br><br>
   {% endfor %}
 </form>
 

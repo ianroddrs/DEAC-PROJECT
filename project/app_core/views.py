@@ -50,7 +50,7 @@ def edit(request):
     resultados_ids = request.POST.getlist('id')
     ocorrencias = []
     form = []
-    print(request.GET.get('id'))
+    print(resultados_ids)
     if request.method == 'POST' and 'salvar' in request.POST:
         resultados_ids = request.POST.getlist('id')
         print(resultados_ids,'aaaaaaaaaaaa')
@@ -60,12 +60,13 @@ def edit(request):
         for ocorrencia in ocorrencias:
             ocorrencia = Sicadfull.objects.get(id=ocorrencia['id'])
             form.append(SicadfullForm(instance=ocorrencia))
-        print(form[0])
+            print(form[0])
         # if all([f.is_valid() for f in form]):
         for f in form:
-            if f.is_valid():
-                f.save()
-                print('------------------------------------SALVOO------------------------------')
+            # if f.is_valid():
+            #     print('valido')
+            f.save()
+            print('------------------------------------SALVOO------------------------------')
             # return redirect(busca)
     else:
         for i in resultados_ids:
@@ -74,6 +75,7 @@ def edit(request):
             # print(ocorrencia['id'])
             ocorrencia = Sicadfull.objects.get(id=ocorrencia['id'])
             form.append(SicadfullForm(instance=ocorrencia))
+            print(form)
     
     context = {
         'form': form,

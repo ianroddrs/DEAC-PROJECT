@@ -103,7 +103,7 @@ class Sicadfull(models.Model):
     data_leitura = models.DateField(blank=True, null=True)
     usuario_modificacao = models.CharField(max_length=200, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
-    exclusao = models.BooleanField()
+    exclusao = models.BooleanField(blank=True, null=True)
 
     class Meta:
         db_table = 'sicadfull'

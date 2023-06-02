@@ -20,7 +20,7 @@ def sair(request):
 
 ## test ##
 from django.shortcuts import render, redirect
-from .scripts import adicionar_filtros, collumns_list
+from .scripts import filtros, collumns_list
 
 @login_required
 def busca(request):
@@ -29,7 +29,7 @@ def busca(request):
     usuario = request.user
     if request.method == 'POST':
         values = [value for value in request.POST.items()]
-        resultado = Sicadfull.objects.filter(adicionar_filtros(request.POST))
+        resultado = Sicadfull.objects.filter(filtros(request.POST))
         context = { 
             "colunas":colunas, 
             "resultado":resultado,
@@ -59,8 +59,8 @@ def edit(request):
         
         for ocorrencia in ocorrencias:
             ocorrencia = Sicadfull.objects.get(id=ocorrencia['id'])
-            form.append(SicadfullForm(instance=ocorrencia))
-            print(form[0])
+            form.append(SicadfullForm(request.POST or None,instance=ocorrencia))
+            # print(form[0])
         # if all([f.is_valid() for f in form]):
         for f in form:
             # if f.is_valid():
@@ -78,7 +78,7 @@ def edit(request):
             print(form)
     
     context = {
-        'form': form,
+        'forms': form,
         'ocorrencias': ocorrencias,
         'resultados': 0
     }

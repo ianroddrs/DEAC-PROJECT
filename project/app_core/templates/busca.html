@@ -65,8 +65,9 @@
   {% for bo in resultado %}
   <div>
     <span><input type="checkbox" name="id" value="{{ bo.id }}"></span>
-    {{ bo.data_fato }} | <br>{{ bo.nro_bop }} | <br>{{ bo.vit_nome }}
-    | <br>{{ bo.vit_pai}} | <br>{{ bo.vit_mae}} | <br>{{ bo.relato}}
+    <div style="border: 1px solid black; border-radius: 5px; padding: 10px; font-size: 0.8em; width: 600px;">{{ bo.data_fato }} | {{ bo.nro_bop }} | {{ bo.vit_nome }}
+      | {{ bo.vit_pai}} | {{ bo.vit_mae}} |</div>
+    <div style="border: 1px solid black; border-radius: 5px; padding: 10px; font-size: 0.8em; width: 600px;">{{ bo.relato | safe}}</div>
   </div>
   <br><br>
   {% endfor %}

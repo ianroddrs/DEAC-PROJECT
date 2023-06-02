@@ -1,4 +1,3 @@
-// adicionar / remover inputs na tela
 document.addEventListener("DOMContentLoaded", function() {
   const dropdownItems = document.querySelectorAll(".dropdown-item");
   const btnApagar = document.querySelectorAll(".btn-apagar");
@@ -10,9 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const dropdownItem = document.querySelector(`.dropdown-item[data-target="${targetData}"]`);
       dropdownItem.classList.add("selected");
 
-      const divPai = input.parentNode;
-      divPai.style.display = "block";
-      divPai.style.setProperty("display", "block", "important");
+      const targetDiv = document.getElementById(targetData);
+      targetDiv.style.display = "block";
     }
   });
 
@@ -28,17 +26,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  btnApagar.forEach(function(item){
-    item.addEventListener("click", function(){
+  btnApagar.forEach(function(item) {
+    item.addEventListener("click", function() {
       const targetData = item.getAttribute("data-target");
-      const targetDiv = document.getElementById(targetData);      
+      const targetDiv = document.getElementById(targetData);
 
       const dropdownItem = document.querySelector(`.dropdown-item[data-target="${targetData}"]`);
       dropdownItem.classList.remove("selected");
 
       var element = item.parentNode;
       var inputElement = element.querySelector("input");
-      targetDiv.style.display = 'none'
+      targetDiv.style.display = 'none';
       inputElement.value = '';
     });
   });

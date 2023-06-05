@@ -20,12 +20,12 @@ def sair(request):
 
 ## test ##
 from django.shortcuts import render, redirect
-from .scripts import filtros, collumns_list
+from .scripts import filtros, columns_list
 
 @login_required
 def busca(request):
     template = 'busca.html'
-    colunas = collumns_list(Sicadfull)
+    colunas = columns_list(Sicadfull)
     usuario = request.user
     if request.method == 'POST':
         values = [value for value in request.POST.items()]

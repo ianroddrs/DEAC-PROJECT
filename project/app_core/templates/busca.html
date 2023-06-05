@@ -27,27 +27,41 @@
   <input type="date" name="data_inicio" id="data_inicio" value="2023-01-01">
   <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
   <input type="date" name="data_fim" id="data_fim" value="2023-01-01">
+
   <!-- Botão de adicionar select -->
-  <span>
-    <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+  <span class="dropdown">
+    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
       <i class="bi bi-plus-lg"></i>
     </button>
-    <ul class="dropdown-menu">
-      {% for coluna in colunas %}
-      <li class="dropdown-item" data-target="{{coluna}}">
-        {{coluna}}
-      </li>
-      {% endfor %}
-  
-    </ul>
-  </span>
+    <div class="dropdown-menu">
+      <div class="dropdown-search">
+        <input type="text" class="form-control" id="dropdown-search-input" placeholder="Pesquisar">
+      </div>
+      <div class="dropdown-items">
+        {% for coluna in colunas %}
+        <li class="dropdown-item" data-target="{{coluna}}">
+          {{coluna}}
+        </li>
+        {% endfor %}
+      </div>
+    </div>
+</span>
   
   <div id="selects">
     {% for coluna in colunas %}
-    <div id="{{coluna}}" class="hide">
+    <div id="select-{{coluna}}" class="hide">
       <span>{{coluna}}</span>
-      <input class="input_busca" type="text" name="{{coluna}}"value="{% for value in values%}{% if value.0 == coluna %}{{value.1}}{% endif %}{% endfor%}">
-      <button type="button" class="btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
+      <input id="{{coluna}}" type="text" name="{{coluna}}" class="input_busca"
+      {% if coluna == 'nro_bop' or coluna == 'nro_bop_aditado' or coluna == 'nro_tombo'%}
+        mask="bop"
+        maxlength="19"
+      {% else %}
+        mask="text"
+      {% endif %}
+      
+      value="{% for value in values%}{% if value.0 == coluna %}{{value.1}}{% endif %}{% endfor%}">
+      <button type="button" class="btn btn-sm btn-success btn-add" data-target="{{coluna}}"><i class="bi bi-check2"></i></i></button>
+      <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
     </div>
     {% endfor %}
   </div>
@@ -58,7 +72,7 @@
 
 <hr>
 
-<h1>Resultado da busca:</h1> 
+<h1>Resultado da busca: {{resultado | length}}</h1> 
 <form action="{% url 'editar' %}" method="post">
   {% csrf_token %}
   <button type="submit"><i class="bi bi-pencil-square"></i></button>

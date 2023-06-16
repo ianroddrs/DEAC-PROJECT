@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Sidebar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <style>
+    #sidebar {
+      width: 200px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -200px;
+      transition: left 0.3s;
+      background-color: #f8f9fa;
+    }
+
+    #sidebar.expanded {
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar"></div>
+
+  <button id="toggleButton" class="btn btn-primary">Toggle Sidebar</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var sidebar = $('#sidebar');
+      var toggleButton = $('#toggleButton');
+
+      toggleButton.click(function() {
+        sidebar.toggleClass('expanded');
+      });
+
+      $(document).click(function(e) {
+        if (!sidebar.is(e.target) && sidebar.has(e.target).length === 0 && !toggleButton.is(e.target)) {
+          sidebar.removeClass('expanded');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

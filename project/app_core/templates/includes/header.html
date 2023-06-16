@@ -1,0 +1,35 @@
+{% load static %}
+
+<header class="py-3 border-bottom">
+    <div class="container d-flex flex-wrap justify-content-center">
+      <a href="/home" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+        <img class="me-4" src="{% static 'img/logo_siac.png' %}" alt="" width="50" height="50">
+        <span class="fs-4">PROJECT</span>
+      </a>
+      <div class="flex-shrink-0 dropdown">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+            <span class="d-inline-block">{{user.username}}</span>
+            <span class="d-inline-block">{{user.group}}</span>
+        </a>
+        <ul class="dropdown-menu text-small shadow" id="user-menu">
+          <li><a class="dropdown-item" href="#">opt-1</a></li>
+          <li><a class="dropdown-item" href="#">opt-2</a></li>
+          <li><a class="dropdown-item" href="#">opt-3</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-center sair" href="{% url 'sair' %}">Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+<nav class="border-bottom p-2 shadow">
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto">
+      <li class="nav-item"><a href="{% url 'home' %}" class="nav-link link-body-emphasis px-2">Home</a></li>
+      <li class="nav-item"><a href="{% url 'busca' %}" class="nav-link link-body-emphasis px-2">Busca</a></li>
+    </ul>
+    <ul class="nav ms-auto">
+      <li class="nav-item"><a href="{% url 'permissions' %}" class="nav-link link-body-emphasis px-2">Permissões de usuários</a></li>
+    </ul>
+  </div>
+</nav>

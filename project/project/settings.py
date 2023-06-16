@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_core.apps.CoreConfig',
-    'app_permissions.apps.PermissionsConfig',
+    'app_main.apps.MainConfig',
     'bootstrap5',
 ]
 

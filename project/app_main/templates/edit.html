@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block statics %}
+<script src="{% static 'js/busca.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'css/busca.css' %}">
+{% endblock %}
+
+{% block title %}
+  Editor de Boletins
+{% endblock %}
+
+{% block content %}
+
+<main>
+  <h1>Editor de Boletins</h1>
+<hr>
+
+
+
+<form method="post">
+  {% csrf_token %}
+<table class="table table-striped">
+  <thead class="thead-dark">
+    {% for form in forms %}
+    {% if form.0 %}
+    <tr>
+      {% for column in form %}
+      <th scope="col">{{column.name}}</th>
+      {% endfor%}
+    </tr>
+    {% endif %}
+    {% endfor%}
+  </thead>
+  <tbody>
+    {% for form in forms %}
+    <tr>
+      {% for cell in form %}
+      <td><input type="text" value="{{cell.value}}"></td>
+      {% endfor %}
+      {% for registro in ocorrencias %}
+      {% for k,v in registro.items %}
+      {% if k == 'id'%}
+      <input type="text" name='id' value="{{v}}">
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<button type="submit" name='salvar' id='salvar'>Salvar</button>
+</form>
+
+
+{% comment %} <form method="post">
+  {% csrf_token %}
+{% for k in forms %}
+{% for i in k %}
+{{i}}
+{% endfor %}
+{% endfor %}
+<input type="text" name="id" value="{{ocorrencias.0.id}}" maxlength="50" id="id">
+<button type="submit" name='salvar'>Salvar</button>
+</form> {% endcomment %}
+
+</main>
+{% endblock %}

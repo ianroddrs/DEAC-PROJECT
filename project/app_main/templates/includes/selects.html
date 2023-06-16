@@ -1,0 +1,19 @@
+<!-- Botão de adicionar select -->
+<div class=" rounded p-1 d-flex justify-content-end">
+    <span class="dropdown">
+        <button type="button" class="btn btn-sm dropdown-toggle border border-2" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            selecionar
+        </button>
+        <div class="dropdown-menu">
+            <div class="dropdown-search">
+            <input type="text" class="form-control" id="dropdown-search-input" placeholder="Pesquisar">
+            </div>
+            <div class="dropdown-items">
+            {% for coluna in colunas %}
+            <a class="dropdown-item" href="#" data-target="{{coluna}}">{{coluna}}</a>
+            {% endfor %}
+            </div>
+        </div>
+    </span>
+    <button type="submit" class="btn btn-sm border border-2 px-3 "><i class="bi bi-search"></i></button>
+</div>

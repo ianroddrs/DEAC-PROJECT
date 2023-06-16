@@ -1,0 +1,26 @@
+#selects > .hide{
+    width: 500px;
+}
+
+.selected {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.selected:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.hide{
+    display: none;
+}
+
+.dropdown-menu{
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dropdown-item{
+    cursor: pointer;
+}

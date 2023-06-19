@@ -13,3 +13,7 @@ def has_permission(user, group):
             else:
                 has_perm = False
     return has_perm  
+
+@register.filter(name="get_item")
+def get_item(dictionary, key):
+    return dictionary.get(key)

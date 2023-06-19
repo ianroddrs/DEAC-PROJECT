@@ -14,42 +14,42 @@
 
 {% block content %}
 <main class="container">
-  <aside class="row my-4">
-
-
-    <section class="col-4 border border-2 filtros">
-      <form method="post" action="{% url 'busca' %}" id="myForm">
-        {% csrf_token %}
-        {% include 'includes/selects.html' %}
-        <div class="form-group">
-          <label for="data_inicio">Período:</label>
-          <div class="input-group">
-            <input type="date" name="data_inicio" id="data_inicio" value="{% for value in values%}{% if value.0 == 'data_inicio' %}{{value.1}}{% endif %}{% endfor%}" class="form-control">
-            <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
-            <input type="date" name="data_fim" id="data_fim" value="{% for value in values%}{% if value.0 == 'data_fim' %}{{value.1}}{% endif %}{% endfor%}" class="form-control">
+  <div class="row my-4">
+    <section class="col-4 border border-2 ">
+      <aside class="filtros">
+        <form method="post" action="{% url 'busca' %}" id="myForm">
+          {% csrf_token %}
+          {% include 'includes/selects.html' %}
+          <div class="form-group">
+            <label for="data_inicio">Período:</label>
+            <div class="input-group">
+              <input type="date" name="data_inicio" id="data_inicio" value="{% for value in values%}{% if value.0 == 'data_inicio' %}{{value.1}}{% endif %}{% endfor%}" class="form-control">
+              <label for="data_fim"><i class="bi bi-arrow-right"></i> </label>
+              <input type="date" name="data_fim" id="data_fim" value="{% for value in values%}{% if value.0 == 'data_fim' %}{{value.1}}{% endif %}{% endfor%}" class="form-control">
+            </div>
           </div>
+          <hr>
+          <div id="selects">
+            {% for coluna in colunas %}
+            <div id="select-{{coluna}}" class="hide">
+                <span>{{coluna}}</span>
+                <div class="input-group">
+                <input id="{{coluna}}" type="text" class="form-control input_busca" {% if coluna == 'nro_bop' or coluna == 'nro_bop_aditado' or coluna == 'nro_tombo'%} mask="bop" maxlength="19" {% else %} mask="text" {% endif %}>
+                <button type="button" class="btn btn-sm btn-success btn-add" data-target="{{coluna}}"><i class="bi bi-check2"></i></button>
+                <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
+                </div>
+                <div id="block-lista-{{coluna}}"></div>
+                <input id="lista-{{coluna}}" class="input_lista" type="hidden" name="{{coluna}}" value="{% for value in values%}{% if value.0 == coluna %}{{value.1}}{% endif %}{% endfor%}">
+            </div>
+            {% endfor %}
         </div>
-        <hr>
-        <div id="selects">
-          {% for coluna in colunas %}
-          <div id="select-{{coluna}}" class="hide">
-              <span>{{coluna}}</span>
-              <div class="input-group">
-              <input id="{{coluna}}" type="text" class="form-control input_busca" {% if coluna == 'nro_bop' or coluna == 'nro_bop_aditado' or coluna == 'nro_tombo'%} mask="bop" maxlength="19" {% else %} mask="text" {% endif %}>
-              <button type="button" class="btn btn-sm btn-success btn-add" data-target="{{coluna}}"><i class="bi bi-check2"></i></button>
-              <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
-              </div>
-              <div id="block-lista-{{coluna}}"></div>
-              <input id="lista-{{coluna}}" class="input_lista" type="hidden" name="{{coluna}}" value="{% for value in values%}{% if value.0 == coluna %}{{value.1}}{% endif %}{% endfor%}">
-          </div>
-          {% endfor %}
-      </div>
-      </form>
+        </form>
+      </aside>
     </section>
-
-
+  
     <section class="col-8 border border-2">
-      <span class="d-flex justify-content-end""><strong>Resultado da busca: {{resultado | length}}</strong></span>
+      {% if resultado %}
+      <span class="d-flex justify-content-end"><strong>Resultado da busca: {{resultado | length}}</strong></span>
       <form action="{% url 'editor' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
@@ -63,7 +63,7 @@
                 <th scope="col">Vítima Nome</th>
                 <th scope="col">Vítima Pai</th>
                 <th scope="col">Vítima Mãe</th>
-
+  
               </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -85,9 +85,8 @@
           </table>
         </div>
       </form>
+      {% endif %}
     </section>
-    
-
-  </aside>
+  </div>
 </main>
 {% endblock %}

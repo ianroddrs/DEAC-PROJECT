@@ -2,7 +2,6 @@ from django.contrib.auth.models import User, Permission
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Sicadfull
-from .forms import SicadfullForm
 from .lists import GROUP_PERMISSIONS
 from .scripts import filtros, columns_list
 
@@ -54,31 +53,18 @@ def busca(request):
 def edit(request):
     template = 'edit.html'
     resultados_ids = request.POST.getlist('id')
+    colunas = columns_list(Sicadfull)
     ocorrencias = []
-    form = []
-    print(resultados_ids)
+    
     for i in resultados_ids:
         ocorrencias.append(Sicadfull.objects.values().get(id=i))
-    for ocorrencia in ocorrencias:
-        # print(ocorrencia['id'])
-        ocorrencia = Sicadfull.objects.get(id=ocorrencia['id'])
-        form.append(SicadfullForm(instance=ocorrencia))
-        print(ocorrencia)
 
-    if request.method == 'POST' and 'salvar' in request.POST:
-        resultados_ids = request.POST.getlist('id')
-        print(resultados_ids,'aaaaaaaaaaaa')
-        for f in form:
-            print(form)
-            if f.is_valid():
-                print('valido')
-            f.save()
-            print('------------------------------------SALVOO------------------------------')
+    if request.method == 'POST' and 'salvar' in request.POST.keys():
+        print('------------------------------------SALVOO------------------------------')
 
     context = {
-        'forms': form,
+        'colunas':colunas,
         'ocorrencias': ocorrencias,
-        'resultados': 0
     }
 
     return render(request, template, context)

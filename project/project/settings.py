@@ -140,3 +140,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'login'
+
+#configuração de dados emviados 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000

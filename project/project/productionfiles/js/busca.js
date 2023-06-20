@@ -20,18 +20,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     lista.forEach(function(elemento) {
       if (elemento.trim() !== "") {
-        const novaDiv = document.createElement("div");
+        const novoBadge = document.createElement("span");
+        novoBadge.classList.add('align-items-center','mx-1', 'border', 'rounded-pill', 'px-1')
+        novoBadge.textContent = elemento.trim();
         
-        const textoDiv = document.createElement("span");
-        textoDiv.textContent = elemento.trim();
+        const divisor = document.createElement("span");
+        divisor.classList.add('vr', 'mx-2')
+
+
+
+        // <span class="badge d-flex align-items-center p-1 pe-2 text-secondary-emphasis bg-secondary-subtle border border-secondary-subtle rounded-pill">
+        //   <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/mdo.png" alt="">
+        //   Secondary
+        //   <span class="vr mx-2"></span>
+        //   <a href="#"><i class="bi bi-x-circle-fill"></i></a>
+        // </span>
+
         
-        const botaoDiv = document.createElement("button");
-        botaoDiv.innerHTML = '<i class="bi bi-x-lg"></i>'
+        const botaoDiv = document.createElement("a");
+        botaoDiv.innerHTML = '<i class="bi bi-x-circle-fill"></i>'
         
         botaoDiv.onclick = function() {
-          divLista.removeChild(novaDiv);
+          divLista.removeChild(novoBadge);
           
-          let valorParaRemover = novaDiv.textContent;
+          let valorParaRemover = novoBadge.textContent;
           let index = lista.indexOf(valorParaRemover);
           if (index !== -1) {
             lista.splice(index, 1);
@@ -39,10 +51,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
           inputLista.value = lista.join()
         };
-
-        novaDiv.appendChild(textoDiv);
-        novaDiv.appendChild(botaoDiv);
-        divLista.appendChild(novaDiv);
+        novoBadge.appendChild(divisor)
+        novoBadge.appendChild(botaoDiv);
+        divLista.appendChild(novoBadge);
       }
     });
   }
@@ -174,4 +185,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const maskFunction = inputType === "bop" ? mboletim : mtext;
     mascara(input, maskFunction);
   });
+});
+
+/////////////////////////
+// PAGINAÇÃO
+////////////////////////
+
+$(document).ready(function(){
+  $('#tabela').DataTable({
+  language: {
+      url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+  },
+  responsive: true,
+  "aaSorting": [],
+});
 });

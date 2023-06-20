@@ -2,9 +2,8 @@ from django.db.models import Q
 from .lists import fields_mapping
 
 def columns_list(Sicadfull):
-    excluded = ["_meta", "__module__", "__doc__", "MultipleObjectsReturned", "DoesNotExist", "objects"]
+    excluded = ["_meta", "__module__", "__doc__", "MultipleObjectsReturned", "DoesNotExist", "objects", "qtd"]
     columns = [column for column in vars(Sicadfull) if column != "id" and not any(s in column for s in excluded)]
-    columns.sort()
     return columns
 
 def listar(input):

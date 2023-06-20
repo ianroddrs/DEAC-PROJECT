@@ -1,0 +1,61 @@
+
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+
+
+{% block statics %}
+<script src="{% static 'js/edit.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'css/edit.css' %}">
+{% endblock %}
+
+{% block title %}
+  Editor de Boletins
+{% endblock %}
+
+{% block content %}
+
+<main class="container">
+  <form action="{% url 'editor' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" name="salvar" class="btn btn-primary">SALVAR</button>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover table-bordered align-middle">
+        <thead>
+          <tr>
+            {% for col in colunas %}
+              <th scope="col">{{col}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          {% for ocorrencia in ocorrencias %}
+          <tr>
+            {% for col in colunas %}
+            <td class="font-sm">
+              {% if col == 'aut_data_nasc' or col == 'data_concl_proc' or col == 'data_fato' or col == 'data_inst_proc' or col == 'data_leitura' or col == 'data_registro' or col == 'vit_dt_nasc' %}
+                <input type="text" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col|date:'Y-m-d' }}">
+              {% elif col == 'data_modificacao' or col == 'data_upload' %}
+                <input type="text" disabled name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col|date:'Y-m-d H:i:s' }}">
+              {% elif col == 'identificacao_fato' or col == 'relator' %}
+                <input type="text" disabled name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col}}">
+              {% elif col == 'exclusao' %}
+                <input type="checkbox" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" {% if ocorrencia|get_item:col == "True" %}selected{% endif %}>
+              {% else %}
+                <input type="text" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col }}">
+              {% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% for id in resultados_ids %}
+      <input type="hidden" name="id" value="{{id}}">
+    {% endfor %}
+  </form>
+</main>
+{% endblock %}

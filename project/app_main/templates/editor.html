@@ -18,44 +18,76 @@
 {% block content %}
 
 <main class="container">
-  <form action="{% url 'editor' %}" method="post">
-    {% csrf_token %}
-    <button type="submit" name="salvar" class="btn btn-primary">SALVAR</button>
-    <div class="table-responsive">
-      <table class="table table-sm table-hover table-bordered align-middle">
-        <thead>
-          <tr>
-            {% for col in colunas %}
-              <th scope="col">{{col}}</th>
+  
+  {% if not resultados_ids %}
+
+  <section class="w-25">
+    <form method="post" action="{% url 'editor' %}" id="fomulario-editor">
+      {% csrf_token %}
+      <div id="select-nro_bop">
+          <span>nro_bop</span>
+          <div class="input-group">
+            <input id="nro_bop" type="text" class="form-control input_busca" mask="bop" maxlength="19">
+            <button type="button" class="btn btn-sm btn-success btn-add" data-target="nro_bop"><i class="bi bi-check2"></i></button>
+            <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
+          </div>
+          <div id="block-lista-nro_bop"></div>
+          <input id="lista-nro_bop" class="input_lista" type="hidden" name="nro_bop">
+      </div>
+      <div id="select-nro_tombo">
+        <span>nro_tombo</span>
+        <div class="input-group">
+          <input id="nro_tombo" type="text" class="form-control input_busca" mask="bop" maxlength="19">
+          <button type="button" class="btn btn-sm btn-success btn-add" data-target="nro_tombo"><i class="bi bi-check2"></i></button>
+          <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
+        </div>
+        <div id="block-lista-nro_tombo"></div>
+        <input id="lista-nro_tombo" class="input_lista" type="hidden" name="nro_tombo">
+      </div>
+      <button type="submit" name="editar" class="btn btn-primary w-100">EDITAR</button>
+    </form>
+  </section>
+  
+  {% else %}
+    <form action="{% url 'editor' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" name="salvar" class="btn btn-primary">SALVAR</button>
+      <div class="table-responsive">
+        <table class="table table-sm table-hover table-bordered align-middle">
+          <thead>
+            <tr>
+              {% for col in colunas %}
+                <th scope="col">{{col}}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            {% for ocorrencia in ocorrencias %}
+            <tr>
+              {% for col in colunas %}
+              <td class="font-sm text-center">
+                {% if col == 'aut_data_nasc' or col == 'data_concl_proc' or col == 'data_fato' or col == 'data_inst_proc' or col == 'data_leitura' or col == 'data_registro' or col == 'vit_dt_nasc' %}
+                  <input type="text" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col|date:'Y-m-d' }}">
+                {% elif col == 'data_modificacao' or col == 'data_upload' %}
+                  <input type="text" disabled name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col|date:'Y-m-d H:i:s' }}">
+                {% elif col == 'identificacao_fato' or col == 'relator' %}
+                  <input type="text" disabled name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col}}">
+                {% elif col == 'exclusao' %}
+                  <input type="checkbox" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" {% if ocorrencia|get_item:col == True %}checked{% endif %}>
+                {% else %}
+                  <input type="text" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col }}">
+                {% endif %}
+              </td>
+              {% endfor %}
+            </tr>
             {% endfor %}
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          {% for ocorrencia in ocorrencias %}
-          <tr>
-            {% for col in colunas %}
-            <td class="font-sm">
-              {% if col == 'aut_data_nasc' or col == 'data_concl_proc' or col == 'data_fato' or col == 'data_inst_proc' or col == 'data_leitura' or col == 'data_registro' or col == 'vit_dt_nasc' %}
-                <input type="text" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col|date:'Y-m-d' }}">
-              {% elif col == 'data_modificacao' or col == 'data_upload' %}
-                <input type="text" disabled name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col|date:'Y-m-d H:i:s' }}">
-              {% elif col == 'identificacao_fato' or col == 'relator' %}
-                <input type="text" disabled name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col}}">
-              {% elif col == 'exclusao' %}
-                <input type="checkbox" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" {% if ocorrencia|get_item:col == "True" %}selected{% endif %}>
-              {% else %}
-                <input type="text" name="coll_{{ ocorrencia.id }}_{{ col }}" id="" value="{{ ocorrencia|get_item:col }}">
-              {% endif %}
-            </td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% for id in resultados_ids %}
-      <input type="hidden" name="id" value="{{id}}">
-    {% endfor %}
-  </form>
+          </tbody>
+        </table>
+      </div>
+      {% for id in resultados_ids %}
+        <input type="hidden" name="id" value="{{id}}">
+      {% endfor %}
+    </form>
+  {% endif %}
 </main>
 {% endblock %}

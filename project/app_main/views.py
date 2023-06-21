@@ -66,6 +66,7 @@ def edit(request):
             obj = get_object_or_404(Sicadfull, id=obj_id)
             for col in colunas:
                 novo_valor = request.POST.get(f"coll_{obj_id}_{col}")
+                print(col, ": ", novo_valor)
                 if novo_valor == '' or novo_valor == 'None':
                     novo_valor = None
                 if col == 'exclusao' and novo_valor == 'on':
@@ -73,6 +74,8 @@ def edit(request):
                 setattr(obj, col, novo_valor)
             obj.save()
 
+    if request.method == 'POST' and 'editar' in request.POST.keys():
+        pass
 
     context = {
         'colunas':colunas,

@@ -6,10 +6,6 @@ def columns_list(Sicadfull):
     columns = [column for column in vars(Sicadfull) if column != "id" and not any(s in column for s in excluded)]
     return columns
 
-def listar(input):
-    lista = input.split(',')
-    return lista
-
 def filtros(request):
     query = Q()
 
@@ -24,7 +20,8 @@ def filtros(request):
         if input in excl:
             continue
         if request.get(input):
-            select = listar(request.get(input))
+            select = request.get(input).split(',')
+            print(select)
             query_temp_1 = Q()
             for item in select:
                 query_temp_2 = Q()

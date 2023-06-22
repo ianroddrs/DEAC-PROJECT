@@ -1,23 +1,17 @@
+{% extends "base.html" %}
 {% load static %}
-{% load bootstrap5 %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico'%}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    <title>Página de Login</title>
-</head>
+{% block statics %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
-  <main class="form-signin w-100 m-auto">
+{% block title %}
+  Página de login
+{% endblock %}
+
+{% block content %}
+<main>
+  <section>
     <form action="{% url 'login' %}" method="POST" id="formulario-entrar">
       <img class="img-fluid mx-auto d-block mb-4" src="{% static 'img/logo_siac.png' %}" alt="" width="100" height="100">
       <h1 class="h3 mb-3 fw-normal">Autenticação</h1>
@@ -33,6 +27,6 @@
         <button class="btn btn-primary w-100 py-2" type="submit">Acessar</button>
     </form>
     <p class="mt-5 mb-3 text-body-secondary">© 2023 PROJECT | SIAC - SEGUP-PA</p>
-  </main>
-</body>
-</html>
+  </section>
+</main>
+{% endblock %}

@@ -12,9 +12,10 @@
     display: none;
 }
 
-.dropdown-menu{
+#dd-selects > .dropdown-menu{
     max-height: 400px;
-    overflow-y:scroll;
+    min-height: 100px;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -29,4 +30,9 @@
 
 .font-sm{
     font-size: 0.75em;
+}
+
+#selects{
+    height: 400px;
+    overflow-y: auto;
 }

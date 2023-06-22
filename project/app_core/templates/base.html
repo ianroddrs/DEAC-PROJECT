@@ -18,8 +18,8 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    {% include 'includes/header.html' %}
+    {% if request.resolver_match.url_name != 'login' %}{% include 'includes/header.html' %}{% endif %}
     {% block content %}{% endblock %}
-    {% include 'includes/footer.html' %}
+    {% if request.resolver_match.url_name != 'login' %}{% include 'includes/footer.html' %}{% endif %}
 </body>
 </html>

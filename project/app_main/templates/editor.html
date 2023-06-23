@@ -7,7 +7,8 @@
 
 
 {% block statics %}
-<script src="{% static 'js/edit.js' %}" defer></script>
+<script src="{% static 'js/editor.js' %}" defer></script>
+<script src="{% static 'js/mask.js' %}" defer></script>
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
 {% endblock %}
 
@@ -62,7 +63,8 @@
       </div>
       {% for id in resultados_ids %}
       <input type="hidden" name="id" value="{{id}}">
-      <button type="submit"></button>
+      
+      <a href="/editor/{{id}}">AAAAAAAAAA</a>
       {% endfor %}
     </form>
 

@@ -51,11 +51,16 @@ def busca(request):
 
 
 @login_required
-def edit(request):
+def editor(request):
     template = 'editor.html'
-    resultados_ids = request.POST.getlist('id')
     colunas = columns_list(Sicadfull)
     ocorrencias = []
+
+    if request.method == 'POST' and 'editar' in request.POST.keys():
+        resultado = Sicadfull.objects.filter(filtros(request.POST))
+        resultados_ids = list(resultado.values_list('id', flat=True))
+    else:
+        resultados_ids = request.POST.getlist('id')
     
     for i in resultados_ids:
         ocorrencias.append(Sicadfull.objects.values().get(id=i))
@@ -73,14 +78,25 @@ def edit(request):
                     novo_valor = True
                 setattr(obj, col, novo_valor)
             obj.save()
-
-    if request.method == 'POST' and 'editar' in request.POST.keys():
-        pass
-
+        
     context = {
         'colunas':colunas,
         'ocorrencias': ocorrencias,
         'resultados_ids' : resultados_ids,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def editor_id(request, id):
+
+    template = 'edit_line.html'
+    boletim = Sicadfull.objects.values().get(id=id)
+    
+    context = {
+        'id' : id,
+        'boletim':boletim,
     }
 
     return render(request, template, context)

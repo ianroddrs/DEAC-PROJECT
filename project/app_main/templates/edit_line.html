@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+
+{% block statics %}
+<script src="{% static 'js/editor.js' %}" defer></script>
+<script src="{% static 'js/mask.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'css/editor.css' %}">
+{% endblock %}
+
+{% block title %}
+  Editor de Boletins
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <section class='w-100'>
+        <table>
+            <thead>
+                    {% for campos in boletim %}
+                    <th>
+                        {{campos}}
+                    </th>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for campos in boletim %}
+                        <td>
+                            {{boletim|get_item:campos}}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+    </section>
+</main>
+{% endblock %}

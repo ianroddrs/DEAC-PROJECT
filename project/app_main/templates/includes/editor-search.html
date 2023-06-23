@@ -5,38 +5,29 @@
                 Pesquisa
             </button>
             <div class="dropdown-menu shadow">
-                <div class="dropdown-search">
-                <input type="text" class="form-control" id="dropdown-search-input" placeholder="Pesquisar">
-                </div>
                 <div class="dropdown-items">
-                {% for coluna in colunas %}
-                <a class="dropdown-item" href="#" data-target="{{coluna}}">{{coluna}}</a>
-                {% endfor %}
+                    <a class="dropdown-item dd-select" href="#" id="dd-nro_bop">nro_bop</a>
+                    <a class="dropdown-item dd-select" href="#" id="dd-nro_tombo">nro_tombo</a>
                 </div>
             </div>
         </span>
     </div>
     <form method="post" action="{% url 'editor' %}" id="fomulario-editor">
         {% csrf_token %}
-        <div id="select-nro_bop">
-            <span>nro_bop</span>
-            <div class="input-group">
-            <input id="nro_bop" type="text" class="form-control input_busca" mask="bop" maxlength="19">
-            <button type="button" class="btn btn-sm btn-success btn-add" data-target="nro_bop"><i class="bi bi-check2"></i></button>
-            <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
+        <div id="selects">
+            <div id="nro_bop">
+                <span>nro_bop</span>
+                <div class="input-group">
+                    <input name="nro_bop" id="nro_bop" type="text" class="form-control input_busca" mask="bop" maxlength="19">
+                </div>
             </div>
-            <div id="block-lista-nro_bop"></div>
-            <input id="lista-nro_bop" class="input_lista" type="hidden" name="nro_bop">
-        </div>
-        <div id="select-nro_tombo">
-        <span>nro_tombo</span>
-        <div class="input-group">
-            <input id="nro_tombo" type="text" class="form-control input_busca" mask="bop" maxlength="19">
-            <button type="button" class="btn btn-sm btn-success btn-add" data-target="nro_tombo"><i class="bi bi-check2"></i></button>
-            <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
-        </div>
-        <div id="block-lista-nro_tombo"></div>
-        <input id="lista-nro_tombo" class="input_lista" type="hidden" name="nro_tombo">
+    
+            <div id="nro_tombo">
+                <span>nro_tombo</span>
+                <div class="input-group">
+                    <input name="nro_tombo" id="nro_tombo" type="text" class="form-control input_busca" mask="bop" maxlength="19">
+                </div>
+            </div>
         </div>
         <button type="submit" name="editar" class="btn btn-primary w-100 mt-4" >EDITAR</button>
     </form>

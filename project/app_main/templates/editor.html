@@ -21,9 +21,7 @@
 <main class="container">
   
   {% if not resultados_ids %}
-
-  {% include 'includes/editor-search.html' %}
-  
+    {% include 'includes/busca-rapida.html' %}
   {% else %}
   <section class="w-100">
     <form action="{% url 'editor' %}" method="post">

@@ -5,6 +5,7 @@ from .models import Sicadfull
 from .lists import GROUP_PERMISSIONS
 from .scripts import filtros, columns_list
 from datetime import datetime
+from django.shortcuts import redirect
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -55,30 +56,34 @@ def editor(request):
     template = 'editor.html'
     colunas = columns_list(Sicadfull)
     ocorrencias = []
+    resultados_ids = []
 
-    if request.method == 'POST' and 'editar' in request.POST.keys():
-        resultado = Sicadfull.objects.filter(filtros(request.POST))
-        resultados_ids = list(resultado.values_list('id', flat=True))
-    else:
+    if request.method == 'POST':
+        
         resultados_ids = request.POST.getlist('id')
-    
+
+        if 'editar' in request.POST.keys():
+            resultado = Sicadfull.objects.filter(filtros(request.POST))
+            resultados_ids = list(resultado.values_list('id', flat=True))
+        elif 'salvar' in request.POST.keys():
+            for ocorrencia in ocorrencias:
+                obj_id = ocorrencia['id']
+                obj = get_object_or_404(Sicadfull, id=obj_id)
+                for col in colunas:
+                    novo_valor = request.POST.get(f"coll_{obj_id}_{col}")
+                    print(col, ": ", novo_valor)
+                    if novo_valor == '' or novo_valor == 'None':
+                        novo_valor = None
+                    if col == 'exclusao' and novo_valor == 'on':
+                        novo_valor = True
+                    setattr(obj, col, novo_valor)
+                obj.save()
+        if len(resultados_ids) == 1:
+            return redirect('editor_id',id=resultados_ids[0])
+
     for i in resultados_ids:
         ocorrencias.append(Sicadfull.objects.values().get(id=i))
 
-    if request.method == 'POST' and 'salvar' in request.POST.keys():
-        for ocorrencia in ocorrencias:
-            obj_id = ocorrencia['id']
-            obj = get_object_or_404(Sicadfull, id=obj_id)
-            for col in colunas:
-                novo_valor = request.POST.get(f"coll_{obj_id}_{col}")
-                print(col, ": ", novo_valor)
-                if novo_valor == '' or novo_valor == 'None':
-                    novo_valor = None
-                if col == 'exclusao' and novo_valor == 'on':
-                    novo_valor = True
-                setattr(obj, col, novo_valor)
-            obj.save()
-        
     context = {
         'colunas':colunas,
         'ocorrencias': ocorrencias,

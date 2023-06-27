@@ -15,8 +15,9 @@
 {% block content %}
 <main class="container">
     <section class='w-100'>
-        <table>
-            <thead>
+        <div class="table-responsive">
+            <table>
+                <thead>
                     {% for campos in boletim %}
                     <th>
                         {{campos}}
@@ -33,6 +34,7 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
     </section>
 </main>
 {% endblock %}

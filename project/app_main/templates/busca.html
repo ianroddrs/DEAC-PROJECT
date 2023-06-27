@@ -37,6 +37,7 @@
                 <div class="input-group">
                 <input id="{{coluna}}" type="text" class="form-control input_busca" {% if coluna == 'nro_bop' or coluna == 'nro_bop_aditado' or coluna == 'nro_tombo'%} mask="bop" maxlength="19" {% else %} mask="text" {% endif %}>
                 <button type="button" class="btn btn-sm btn-success btn-add" data-target="{{coluna}}"><i class="bi bi-check2"></i></button>
+                <button type="button" class="btn btn-sm btn-warning btn-add" data-target="{{coluna}}"><i class="bi bi-gear"></i></button>
                 <button type="button" class="btn btn-sm btn-danger btn-apagar" data-target="{{coluna}}"><i class="bi bi-trash"></i></button>
                 </div>
                 <div id="block-lista-{{coluna}}"></div>

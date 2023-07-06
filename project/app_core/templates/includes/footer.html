@@ -1,10 +1,13 @@
 <footer class="shadow">
-  <div class="py-3 my-4 container">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+  <div id="bar"></div>
+  <div class="pt-3 my-4 container mb-0" id="nav">
+    <ul class="nav justify-content-center border-bottom">
       <li class="nav-item"><a href="{% url 'home' %}" class="nav-link px-2 text-body-secondary">Home</a></li>
       <li class="nav-item"><a href="{% url 'busca' %}" class="nav-link px-2 text-body-secondary">Busca</a></li>
       <li class="nav-item"><a href="{% url 'editor' %}" class="nav-link link-body-emphasis px-2">Editor</a></li>
     </ul>
+  </div>
+  <div class="py-4" id="text">
     <p class="text-center text-body-secondary">© 2023 PROJECT | SIAC - SEGUP-PA</p>
   </div>
   {% include 'includes/loading.html' %}

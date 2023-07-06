@@ -1,5 +1,6 @@
 from django import template
 from app_main.lists import GROUP_PERMISSIONS
+from django.utils.html import strip_tags
 
 register = template.Library()
 
@@ -17,3 +18,7 @@ def has_permission(user, group):
 @register.filter(name="get_item")
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+@register.filter
+def removetags(value, tag):
+    return strip_tags(value).replace(tag, '')

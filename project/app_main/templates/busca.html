@@ -14,13 +14,11 @@
 {% endblock %}
 
 {% block content %}
-<main class="container">
-  <div class="row my-4 w-100">
-    <section class="col-4 border border-2">
-      <aside class="filtros">
+<main class="container my-3 border shadow">
+  <div class="row w-100">
+    <section class="col-4 py-3">
         <form method="post" action="{% url 'busca' %}" id="myForm">
           {% csrf_token %}
-          {% include 'includes/selects.html' %}
           <div class="form-group">
             <label for="data_inicio">Período:</label>
             <div class="input-group">
@@ -30,7 +28,8 @@
             </div>
           </div>
           <hr>
-          <div id="selects" class="p-2">
+          {% include 'includes/selects.html' %}
+          <div id="selects" class="p-2 border">
             {% for coluna in colunas %}
             <div id="select-{{coluna}}" class="hide">
                 <span>{{coluna}}</span>
@@ -47,12 +46,11 @@
         </div>
         <button type="submit" class="btn btn-sm btn-primary border border-2 my-3 w-100"><i class="bi bi-search"></i></button>
         </form>
-      </aside>
     </section>
   
-    <section class="col-8 border border-2">
-      {% if resultado %}
-      <span class="d-flex justify-content-end"><strong>Resultado da busca: {{resultado | length}}</strong></span>
+    <section class="col-8 my-3 border">
+      {% if Boletins %}
+      <span class="d-flex justify-content-end"><strong>Resultado da busca: {{Boletins | length}}</strong></span>
       <form action="{% url 'editor' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
@@ -70,18 +68,18 @@
               </tr>
             </thead>
             <tbody class="table-group-divider">
-              {% for bo in resultado %}
+              {% for campo in Boletins %}
               <tr>
                 <td>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="id" value="{{ bo.id }}">
+                    <input class="form-check-input" type="checkbox" name="id" value="{{ campo.id }}">
                   </div>
                 </td>
-                <td class="font-sm">{{ bo.data_fato }}</td>
-                <td class="font-sm">{{ bo.nro_bop }}</td>
-                <td class="font-sm">{{ bo.vit_nome }}</td>
-                <td class="font-sm">{{ bo.vit_pai }}</td>
-                <td class="font-sm">{{ bo.vit_mae }}</td>
+                <td class="font-sm">{{ campo.data_fato }}</td>
+                <td class="font-sm">{{ campo.nro_bop }}</td>
+                <td class="font-sm">{{ campo.vit_nome }}</td>
+                <td class="font-sm">{{ campo.vit_pai }}</td>
+                <td class="font-sm">{{ campo.vit_mae }}</td>
               </tr>
               {% endfor %}
             </tbody>

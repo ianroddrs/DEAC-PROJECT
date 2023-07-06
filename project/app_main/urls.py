@@ -8,5 +8,5 @@ urlpatterns = [
     path('editor/', views.editor, name='editor'),
     
     ## test ##
-    path('editor/<int:id>', views.editor_id, name='editor_id')
+    path('editor/<int:id>', views.edit_line, name='edit_line')
 ]

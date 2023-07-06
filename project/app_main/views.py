@@ -8,7 +8,7 @@ from datetime import datetime
 from django.shortcuts import redirect
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.groups.filter(name__in=['Gerente', 'Administrador']).exists())
 def user_permissions(request):
     template = 'permissoes.html'
     users = User.objects.all()
@@ -38,10 +38,10 @@ def busca(request):
     usuario = request.user
     if request.method == 'POST':
         values = [value for value in request.POST.items()]
-        resultado = Sicadfull.objects.filter(filtros(request.POST))
+        Boletins = Sicadfull.objects.filter(filtros(request.POST))
         context = { 
             "colunas":colunas, 
-            "resultado":resultado,
+            "Boletins":Boletins,
             "values":values,
             }
     else:
@@ -61,10 +61,12 @@ def editor(request):
     if request.method == 'POST':
         
         resultados_ids = request.POST.getlist('id')
-
+        for i in resultados_ids:
+            ocorrencias.append(Sicadfull.objects.values().get(id=i))
+            
         if 'editar' in request.POST.keys():
-            resultado = Sicadfull.objects.filter(filtros(request.POST))
-            resultados_ids = list(resultado.values_list('id', flat=True))
+            Boletins = Sicadfull.objects.filter(filtros(request.POST))
+            resultados_ids = list(Boletins.values_list('id', flat=True))
         elif 'salvar' in request.POST.keys():
             for ocorrencia in ocorrencias:
                 obj_id = ocorrencia['id']
@@ -79,10 +81,8 @@ def editor(request):
                     setattr(obj, col, novo_valor)
                 obj.save()
         if len(resultados_ids) == 1:
-            return redirect('editor_id',id=resultados_ids[0])
+            return redirect('edit_line',id=resultados_ids[0])
 
-    for i in resultados_ids:
-        ocorrencias.append(Sicadfull.objects.values().get(id=i))
 
     context = {
         'colunas':colunas,
@@ -94,10 +94,14 @@ def editor(request):
 
 
 @login_required
-def editor_id(request, id):
+def edit_line(request, id):
 
     template = 'edit_line.html'
     boletim = Sicadfull.objects.values().get(id=id)
+
+    if request.method == 'POST':
+        print("foi")
+
     
     context = {
         'id' : id,

@@ -3,9 +3,9 @@
 {% load filters %}
 
 {% block statics %}
-<script src="{% static 'js/editor.js' %}" defer></script>
+<script src="{% static 'js/edit_line.js' %}" defer></script>
 <script src="{% static 'js/mask.js' %}" defer></script>
-<link rel="stylesheet" href="{% static 'css/editor.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit_line.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -13,28 +13,139 @@
 {% endblock %}
 
 {% block content %}
-<main class="container">
-    <section class='w-100'>
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    {% for campos in boletim %}
-                    <th>
-                        {{campos}}
-                    </th>
-                    {% endfor %}
-                </thead>
-                <tbody>
-                    <tr>
-                        {% for campos in boletim %}
-                        <td>
-                            {{boletim|get_item:campos}}
-                        </td>
-                        {% endfor %}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+<main class="container my-3 border shadow">
+    <div class="row">
+        <section class='col-12 w-100'>
+            <label for="relato" class="form-label"><strong>Relato {{boletim.nro_bop}}</strong></label>
+            <textarea class="form-control" id="relato" rows="10">{{boletim.relato|striptags|removetags:'&NBSP;'}}</textarea>
+            <span><strong>data do registro: </strong>{{boletim.data_registro}} às {{boletim.hora_registro}}</span>
+            <span><strong>data do fato: </strong>{{boletim.data_fato}} às {{boletim.dhora_fato}}</span>
+            <span><strong>municipio: </strong>{{boletim.municipios}}</span>
+            <span><strong>servidor: </strong>{{boletim.servidor}}</span>
+        </section>
+        <section class="col-12 w-100">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">BOLETIM DE OCORRÊNCIA</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">VÍTIMAS</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">AUTORES</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">MODUS OPERANDI</button>
+                </li>
+            </ul>
+            <form method="post" action="{% url 'edit_line' id %}">
+            {% csrf_token %}
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for=""><strong>Nº BOP</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_bop}}">
+                            <label for=""><strong>Nº BOP ADITADO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_bop_aditado}}">
+                            <label for=""><strong>Nº TOMBO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_tombo}}">
+                            <label for=""><strong>TIPO DE PROCEDIMENTO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.tipo_tombo}}">
+                            <label for=""><strong>SITUAÇÃO DO PROCESSO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.sit_proc}}">
+                        </div>
+                        <div class="col-4">
+                            <label for=""><strong>Nº BOP</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_bop}}">
+                            <label for=""><strong>Nº BOP ADITADO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_bop_aditado}}">
+                            <label for=""><strong>SITUAÇÃO DO PROCESSO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.sit_proc}}">
+                            <label for=""><strong>Nº TOMBO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_tombo}}">
+                            <label for=""><strong>TIPO DE PROCEDIMENTO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.tipo_tombo}}">
+                        </div>
+                        <div class="col-4">
+                            <label for=""><strong>Nº BOP</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_bop}}">
+                            <label for=""><strong>Nº BOP ADITADO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_bop_aditado}}">
+                            <label for=""><strong>SITUAÇÃO DO PROCESSO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.sit_proc}}">
+                            <label for=""><strong>Nº TOMBO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.nro_tombo}}">
+                            <label for=""><strong>TIPO DE PROCEDIMENTO</strong></label>
+                            <input type="text" class="form-control" value="{{boletim.tipo_tombo}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div class="row">
+                        <div class="col-4">
+                            ...
+                        </div>
+                        <div class="col-4">
+                            ...
+                        </div>
+                        <div class="col-4">
+                            ...
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                    <div class="row">
+                        <div class="col-4">
+                            ...
+                        </div>
+                        <div class="col-4">
+                            ...
+                        </div>
+                        <div class="col-4">
+                            ...
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+                    <div class="row">
+                        <div class="col-4">
+                            ...
+                        </div>
+                        <div class="col-4">
+                            ...
+                        </div>
+                        <div class="col-4">
+                            ...
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <button type="submit">enviar</button>
+            </form>
+        </section>
+    </div>
 </main>
+
+
+<div class="table-responsive">
+    <table>
+        <thead>
+            {% for campos in boletim %}
+            <th>
+                {{campos}}
+            </th>
+            {% endfor %}
+        </thead>
+        <tbody>
+            <tr>
+                {% for campos in boletim %}
+                <td>
+                    {{boletim|get_item:campos}}
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
